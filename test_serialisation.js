@@ -190,13 +190,16 @@ function serialization(transaction, isLastFile) {
         if(totalInputcount > 127){
             wholeTransValid = false;
         }
-        if((transaction.locktime > 700000)  && (transaction.locktime < 499999999)){
+        if((transaction.locktime > 538403)){
             wholeTransValid = false;
         }
-        const unixTimestamp = Math.floor(Date.now() / 1000);
-        if(transaction.locktime > unixTimestamp && (transaction.locktime < 4294967295)){
-            wholeTransValid = false;
-        }
+        // if(transaction.locktime >  0){
+        //     wholeTransValid = false;
+        // }
+        // const unixTimestamp = Math.floor(Date.now() / 1000);
+        // if(transaction.locktime > unixTimestamp && (transaction.locktime < 4294967295)){
+        //     wholeTransValid = false;
+        // }
         if(wholeTransValid == true){
             let singleTransID = GetSegwitTransactionID(transaction)
             txids.push(singleTransID);
