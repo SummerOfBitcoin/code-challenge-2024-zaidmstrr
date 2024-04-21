@@ -39,11 +39,12 @@ function mineBlock(version, prevBlockHash, merkleRoot, time, bits, difficultyTar
             // Create the block header
             const header = Buffer.alloc(80); // Standard Bitcoin block header size is 80 bytes
             header.writeInt32LE(version, 0); // Version (4 bytes)
-            header.write(prevBlockHash, 4, 'hex'); // Previous Block Hash (32 bytes)
-            header.write(merkleRoot, 36, 'hex'); // Merkle Root (32 bytes)
+            header.write(prevBlockHash, 4, 32, 'hex'); // Previous Block Hash (32 bytes)
+            header.write(merkleRoot, 36, 32, 'hex'); // Merkle Root (32 bytes)
             header.writeUInt32LE(time, 68); // Time (4 bytes)
             header.writeUInt32LE(bits, 72); // Bits (4 bytes)
             header.writeUInt32LE(nonce, 76); // Nonce (4 bytes)
+
 
             // Hash the block header
             let hash = doubleSHA256(header);
