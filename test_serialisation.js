@@ -190,9 +190,9 @@ function serialization(transaction, isLastFile) {
         if(totalInputcount > 127){
             wholeTransValid = false;
         }
-        if(transaction.locktime > 0){
-            wholeTransValid = false;
-        }
+        // if(transaction.locktime > 0){
+        //     wholeTransValid = false;
+        // }
         if(wholeTransValid == true){
             let singleTransID = GetSegwitTransactionID(transaction)
             txids.push(singleTransID);
