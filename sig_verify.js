@@ -105,7 +105,7 @@ function verifySignature(publicKeyHex, signatureHex, messageHashHex) {
         // Perform the verification
         const isValid = publicKey.verify(messageHash, signature);
 
-        console.log("Signature valid:", isValid);
+        // console.log("Signature valid:", isValid);
         return isValid;
     } catch (error) {
         console.error("Verification failed:", error);

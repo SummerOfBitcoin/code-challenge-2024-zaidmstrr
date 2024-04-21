@@ -132,7 +132,7 @@ function serialization(transaction, isLastFile) {
             // console.log("BIP 143 Transaction Hex:", bip143.toString('hex'));
             const hashedBip143 = doubleSHA256(bip143);
             hashedBip143forSig = hashedBip143;
-            console.log("Hashed BIP 143:", hashedBip143.toString('hex'));
+            // console.log("Hashed BIP 143:", hashedBip143.toString('hex'));
         
         
             const pubkeyHex = input.witness[1];
@@ -206,7 +206,7 @@ function serialization(transaction, isLastFile) {
             wTxids.push(singleWtxid);
 
             ++numOfP2wpkhTrans;
-            console.log(numOfP2wpkhTrans);
+            // console.log(numOfP2wpkhTrans);
         }
 
     }
@@ -262,11 +262,11 @@ function serialization(transaction, isLastFile) {
         let coinbaseHash = doubleSHA256(Buffer.from(coinbaseinHex, 'hex'));
         // Reverse the hash to get the txid
         let coinbasetxid = coinbaseHash.reverse().toString('hex');
-        console.log("Coinbase hex: " + coinbasetxid)
+        // console.log("Coinbase hex: " + coinbasetxid)
         // coinbse END
 
-        console.log("number of valid transactions: " + numOfP2wpkhTrans);
-        console.log("The total fee is: " + totalfee);
+        // console.log("number of valid transactions: " + numOfP2wpkhTrans);
+        // console.log("The total fee is: " + totalfee);
 
         
         
@@ -284,7 +284,7 @@ function serialization(transaction, isLastFile) {
         // Reverse the final root to match the Ruby's output example
         let merkleRootNBO = root.match(/../g).join('');
         // console.log("merkle root is: "+root.match(/../g).reverse().join(''));
-        console.log("merkle root is: "+root.match(/../g).join(''));
+        // console.log("merkle root is: "+root.match(/../g).join(''));
 
         //calling to mine a block
         runMining(merkleRootNBO,witnessTransaction, finalTxidsArray)
