@@ -17,10 +17,14 @@ let wTxids = [];
 function serialization(transaction, isLastFile) {
     let wholeTransValid = true;
     let p2wpkhInputCount = 0;
+    let p2pkhCount = 0
     let totalInputcount = 0;
     transaction.vin.forEach(input => {
         if(input.prevout.scriptpubkey_type == "v0_p2wpkh"){
             ++p2wpkhInputCount;
+        }
+        if(input.prevout.scriptpubkey_type == "p2pkh"){
+            ++p2pkhCount
         }
         ++totalInputcount;
     })
@@ -187,9 +191,9 @@ function serialization(transaction, isLastFile) {
 
         })
         // transaction Script verification END
-        if(totalInputcount > 127){
-            wholeTransValid = false;
-        }
+        // if(totalInputcount > 127){
+        //     wholeTransValid = false;
+        // }
         // if((transaction.locktime > 538403)){
         //     wholeTransValid = false;
         // }
@@ -215,6 +219,15 @@ function serialization(transaction, isLastFile) {
             ++numOfP2wpkhTrans;
             console.log(numOfP2wpkhTrans);
         }
+
+    }
+
+
+    if(p2pkhCount == totalInputcount){
+
+
+
+
 
     }
 

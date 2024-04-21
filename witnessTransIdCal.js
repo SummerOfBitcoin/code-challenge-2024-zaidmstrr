@@ -294,8 +294,49 @@ function wTXID(transaction){
 
 
     // tx in/out count
-    let tx_in_count = Buffer.alloc(1);
-    tx_in_count.writeInt8(numOfInputs, 0);
+
+
+
+
+
+    function writeVarInt(value) {
+      const buffer = Buffer.alloc(9); // Maximum size needed for VarInt
+      if (value < 0xfd) {
+          // Use 1 byte for values < 253
+          return Buffer.from([value]);
+      } else if (value <= 0xffff) {
+          // Use 3 bytes for values <= 65535
+          buffer[0] = 0xfd;
+          buffer.writeUInt16LE(value, 1);
+          return buffer.slice(0, 3);
+      } else if (value <= 0xffffffff) {
+          // Use 5 bytes for values <= 4294967295
+          buffer[0] = 0xfe;
+          buffer.writeUInt32LE(value, 1);
+          return buffer.slice(0, 5);
+      } else {
+          // Use 9 bytes for larger values
+          buffer[0] = 0xff;
+          buffer.writeUInt32LE(value & 0xFFFFFFFF, 1); // Lower 32 bits
+          buffer.writeUInt32LE(Math.floor(value / 0x100000000), 5); // Upper 32 bits
+          return buffer.slice(0, 9);
+      }
+  }
+  
+  function createTransactionInputBuffer(numOfInputs) {
+      // Use the VarInt encoding for the number of inputs
+      return writeVarInt(numOfInputs);
+  }
+
+
+
+
+
+
+
+    // let tx_in_count = Buffer.alloc(1);
+    let tx_in_count = createTransactionInputBuffer(numOfInputs);
+    // tx_in_count.writeUInt8(numOfInputs, 0);
     // tx_in_count.writeInt16LE(numOfInputs,0);
     let tx_out_count = Buffer.alloc(1);
     tx_out_count.writeUInt8(numOfOutputs, 0);
