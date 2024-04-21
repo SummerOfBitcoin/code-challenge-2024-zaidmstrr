@@ -333,7 +333,7 @@ function wTXID(transaction){
     let hashedTrans = doubleSHA256(final_tx);
     let hexhashedTrans = hashedTrans.toString('hex');
     let wTXID = toLittleEndian(hexhashedTrans)
-    console.log(wTXID)
+    // console.log(wTXID)
 
     return wTXID;
   
