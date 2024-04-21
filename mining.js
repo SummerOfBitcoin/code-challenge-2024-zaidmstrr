@@ -24,13 +24,14 @@ function serializeBlockHeader({
 }) {
     const buffer = Buffer.alloc(80); // Block header is always 80 bytes
     buffer.writeInt32LE(version, 0); // Version - 4 bytes
-    buffer.write(prevBlockHash, 4, 36, 'hex'); // Previous Block Hash - 32 bytes
-    buffer.write(merkleRoot, 36, 'hex'); // Merkle Root - 32 bytes
-    buffer.writeUInt32LE(time, 68); // Time - 4 bytes
-    buffer.writeUInt32LE(bits, 72); // Bits - 4 bytes
-    buffer.writeUInt32LE(nonce, 76); // Nonce - 4 bytes
+    buffer.write(prevBlockHash, 4, 32, 'hex'); // Previous Block Hash - 32 bytes starts at offset 4
+    buffer.write(merkleRoot, 36, 'hex'); // Merkle Root - 32 bytes starts at offset 36
+    buffer.writeUInt32LE(time, 68); // Time - 4 bytes starts at offset 68
+    buffer.writeUInt32LE(bits, 72); // Bits - 4 bytes starts at offset 72
+    buffer.writeUInt32LE(nonce, 76); // Nonce - 4 bytes starts at offset 76
     return buffer.toString('hex');
 }
+
 
 function mineBlock(version, prevBlockHash, merkleRoot, time, bits, difficultyTarget) {
     return new Promise((resolve, reject) => {
