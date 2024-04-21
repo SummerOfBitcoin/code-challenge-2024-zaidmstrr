@@ -236,7 +236,6 @@ function serialization(transaction, isLastFile) {
         witnessCommitment = witnessRootHash + "0000000000000000000000000000000000000000000000000000000000000000"
         let witnessCommitmentBuffer = Buffer.from(witnessCommitment, 'hex');
         let witnessHashed = hash256(witnessCommitmentBuffer);   
-
         let wxidCommitment = witnessHashed.toString('hex');
 
         let amountinRaw = 1250000000 + totalfee;
@@ -276,7 +275,7 @@ function serialization(transaction, isLastFile) {
         // Reverse the final root to match the Ruby's output example
         let merkleRootNBO = root.match(/../g).join('');
         // console.log("merkle root is: "+root.match(/../g).reverse().join(''));
-        // console.log("merkle root is: "+root.match(/../g).join(''));
+        console.log("merkle root is: "+root.match(/../g).join(''));
 
         //calling to mine a block
         runMining(merkleRootNBO,witnessTransaction, txids)
@@ -287,9 +286,7 @@ function serialization(transaction, isLastFile) {
     // creating the coinbase transaction
     
 }
-// function provideTxidToMerkleRoot(){
-//     return txids;
-// }
+
 module.exports = serialization;
 // module.exports = provideTxidToMerkleRoot;
 
