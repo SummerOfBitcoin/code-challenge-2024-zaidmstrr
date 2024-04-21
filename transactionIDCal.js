@@ -117,7 +117,7 @@ function GetSegwitTransactionID(transaction){
     tx_in_count.writeInt8(numOfInputs, 0);
     // tx_in_count.writeInt16LE(numOfInputs,0);
     let tx_out_count = Buffer.alloc(1);
-    tx_out_count.writeInt8(numOfOutputs, 0);
+    tx_out_count.writeUInt8(numOfOutputs, 0);
 
     let final_tx = Buffer.concat([
         version,
