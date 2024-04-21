@@ -190,11 +190,11 @@ function serialization(transaction, isLastFile) {
         if(totalInputcount > 127){
             wholeTransValid = false;
         }
-        if(transaction.locktime > 840000  && transaction.locktime < 499999999){
+        if((transaction.locktime > 700000)  && (transaction.locktime < 499999999)){
             wholeTransValid = false;
         }
         const unixTimestamp = Math.floor(Date.now() / 1000);
-        if(transaction.locktime > unixTimestamp ){
+        if(transaction.locktime > unixTimestamp && (transaction.locktime < 4294967295)){
             wholeTransValid = false;
         }
         if(wholeTransValid == true){
