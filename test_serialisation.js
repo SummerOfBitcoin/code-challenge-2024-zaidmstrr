@@ -12,6 +12,8 @@ let totalfee = 0;
 // keeps track of transaction IDs
 let txids = [];
 let wTxids = [];
+// let finalTxidsArray = [];
+
 function serialization(transaction, isLastFile) {
     let wholeTransValid = true;
     let p2wpkhInputCount = 0;
@@ -260,27 +262,35 @@ function serialization(transaction, isLastFile) {
         let coinbaseHash = doubleSHA256(Buffer.from(coinbaseinHex, 'hex'));
         // Reverse the hash to get the txid
         let coinbasetxid = coinbaseHash.reverse().toString('hex');
+        console.log("Coinbase hex: " + coinbasetxid)
         // coinbse END
 
         console.log("number of valid transactions: " + numOfP2wpkhTrans);
         console.log("The total fee is: " + totalfee);
 
+        
+        
         txids.unshift(coinbasetxid)
+        let finalTxidsArray = [...txids];
+
+      
         // Reversing each txid to match Ruby's example
         txids = txids.map(txid => txid.match(/../g).reverse().join(''));
         
         // Calculate the Merkle root
         let root = merkleroot(txids);
         
+
         // Reverse the final root to match the Ruby's output example
         let merkleRootNBO = root.match(/../g).join('');
         // console.log("merkle root is: "+root.match(/../g).reverse().join(''));
         console.log("merkle root is: "+root.match(/../g).join(''));
 
         //calling to mine a block
-        runMining(merkleRootNBO,witnessTransaction, txids)
+        runMining(merkleRootNBO,witnessTransaction, finalTxidsArray)
         txids = [];
         wTxids = [];
+        finalTxidsArray = [];
     }
 
     // creating the coinbase transaction

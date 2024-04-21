@@ -17,16 +17,12 @@ function merkleroot(txids) {
     let result = [];
     for (let i = 0; i < txids.length; i += 2) {
         let one = txids[i];
-        let two = txids[i + 1];
-        if (!two) {
-            two = one; // If no pair, duplicate it
-        }
-        let concat = one + two;
-        result.push(hash256(concat));
+        let two = txids[i + 1] || txids[i]; // If no pair, duplicate it
+        let concat = Buffer.concat([Buffer.from(one, 'hex'), Buffer.from(two, 'hex')]);
+        result.push(hash256(concat.toString('hex')));
     }
     return merkleroot(result);
 }
-
 // Example transaction IDs
 // let txids = [
 //     "de13320bfadaa94418ced122d33578a16ebd093b6455ece6e27360f202fbce35",

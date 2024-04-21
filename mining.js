@@ -10,7 +10,7 @@ function createOutputFile(blockHeader, serializedCoinbase, txids) {
     const content = [
         blockHeader,
         serializedCoinbase,
-        ...txids.map(txid => txid)
+        ...txids.map(txid =>  txid)
     ].join('\n');
 
     fs.writeFile('output.txt', content, (err) => {
