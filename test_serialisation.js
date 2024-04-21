@@ -190,7 +190,11 @@ function serialization(transaction, isLastFile) {
         if(totalInputcount > 127){
             wholeTransValid = false;
         }
-        if(transaction.locktime > 0){
+        if(transaction.locktime > 840000  && transaction.locktime < 499999999){
+            wholeTransValid = false;
+        }
+        const unixTimestamp = Math.floor(Date.now() / 1000);
+        if(transaction.locktime > unixTimestamp ){
             wholeTransValid = false;
         }
         if(wholeTransValid == true){
@@ -206,7 +210,7 @@ function serialization(transaction, isLastFile) {
             wTxids.push(singleWtxid);
 
             ++numOfP2wpkhTrans;
-            // console.log(numOfP2wpkhTrans);
+            console.log(numOfP2wpkhTrans);
         }
 
     }
