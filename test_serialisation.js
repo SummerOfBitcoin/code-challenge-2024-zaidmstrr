@@ -267,9 +267,9 @@ function serialization(transaction, isLastFile) {
         let root = merkleroot(txids);
         
         // Reverse the final root to match the Ruby's output example
-        let merkleRootNBO = root.match(/../g).join('');
-        // console.log("merkle root is: "+root.match(/../g).reverse().join(''));
-        console.log("merkle root is: "+root.match(/../g).join(''));
+        let merkleRootNBO = root.match(/../g).reverse().join('');
+        console.log("merkle root is: "+root.match(/../g).reverse().join(''));
+        // console.log("merkle root is: "+root.match(/../g).join(''));
 
         //calling to mine a block
         runMining(merkleRootNBO,witnessTransaction, txids)
